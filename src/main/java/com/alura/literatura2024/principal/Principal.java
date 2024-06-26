@@ -1,77 +1,197 @@
 package com.alura.literatura2024.principal;
 
-import java.util.Scanner;
+import com.alura.literatura2024.model.Autor;
+import com.alura.literatura2024.model.DadosAutor;
+import com.alura.literatura2024.model.DadosLivro;
+import com.alura.literatura2024.model.Livro;
+import com.alura.literatura2024.repository.AutorRepository;
+import com.alura.literatura2024.repository.LivroRepository;
+import com.alura.literatura2024.service.ConsumoApi;
+import com.alura.literatura2024.service.DadosConverter;
 
+import java.util.*;
 public class Principal {
-    private final Scanner leitura = new Scanner(System.in);
+    private Scanner sc = new Scanner(System.in);
+    private ConsumoApi requisicao = new ConsumoApi();
+    private AutorRepository repositorioAutor;
+    private LivroRepository repositorioLivro;
+    //private List<Livro> livro = new ArrayList<>();
+    private DadosConverter conversor = new DadosConverter();
+    private final String ADDRESS = "https://gutendex.com/books?search=";
 
-    public void exibeMenu() {
+    public Principal(AutorRepository repositorioAutor, LivroRepository repositorioLivro) {
+        this.repositorioAutor = repositorioAutor;
+        this.repositorioLivro = repositorioLivro;
+    }
+
+    public void principal(){
+        String menu = """
+
+                ===================================================================================================================
+                ██╗     ██╗████████╗███████╗██████╗  █████╗ ████████╗██╗   ██╗██████╗  █████╗     ██████╗  ██████╗ ██████╗ ██╗  ██╗
+                ██║     ██║╚══██╔══╝██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██║   ██║██╔══██╗██╔══██╗    ╚════██╗██╔═████╗╚════██╗██║  ██║
+                ██║     ██║   ██║   █████╗  ██████╔╝███████║   ██║   ██║   ██║██████╔╝███████║     █████╔╝██║██╔██║ █████╔╝███████║
+                ██║     ██║   ██║   ██╔══╝  ██╔══██╗██╔══██║   ██║   ██║   ██║██╔══██╗██╔══██║    ██╔═══╝ ████╔╝██║██╔═══╝ ╚════██║
+                ███████╗██║   ██║   ███████╗██║  ██║██║  ██║   ██║   ╚██████╔╝██║  ██║██║  ██║    ███████╗╚██████╔╝███████╗     ██║
+                ╚══════╝╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝    ╚══════╝ ╚═════╝ ╚══════╝     ╚═╝
+
+                ===================================================================================================================
+                1 - Buscar livro pelo titulo
+                2 - Listar livros registrados
+                3 - Listar autores registrados
+                4 - Listar autores vivos em determinado ano
+                5 - Listar livros em determinado idioma
+                6 - Top 10 livros
+                7 - Buscar autores por nome
+                8 - Media de downloads por autor
+                
+                0 - Sair
+
+                ===================================================================================================================
+                """;
         var opcao = -1;
-
-        while (opcao!= 6) {
-            var menu = """
-                    *** Literatura ***                    
-                                        
-                    1- Buscar libro pelo título
-                    2- Listar de livros registrados
-                    3- Listar de autores registrados
-                    4- listar de autores vivos em um determinado ano
-                    5- Listar de livros em um determinado idioma
-                                    
-                    6 - Sair
-                    """;
-
+        while (opcao != 0){
             System.out.println(menu);
-            opcao = leitura.nextInt();
-            leitura.nextLine();
+            opcao = sc.nextInt();
+            sc.nextLine();
 
-            switch (opcao) {
+            switch (opcao){
                 case 1:
-                    buscarLivroPeloTitulo();
+                    buscarNovoLivro();
                     break;
                 case 2:
-                    listarLivrosRegistros();
+                    buscarLivrosRegistrados();
                     break;
                 case 3:
-                    listarAutoresRegistrados();
+                    buscarAutoresRegistrados();
                     break;
                 case 4:
-                    listarAutoresVivosEmUmDeterminadoAno();
+                    buscarAutoresVivosPorAno();
                     break;
                 case 5:
-                    listarLivrosEmUmDeterminadoIdioma();
+                    buscarLivrosPorIdioma();
                     break;
                 case 6:
-                    System.out.println("Encerrando a aplicação!");
+                    buscarTop10();
+                    break;
+                case 7:
+                    buscarAutorPorNome();
+                    break;
+                case 8:
+                    mediaDeDownlaodsPorAutor();
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("\n\n***Opção Inválida***\n\n");
             }
+        }
+
+
+    }
+
+    private void buscarNovoLivro() {
+        System.out.println("\nQual livro deseja buscar?");
+        var buscaDoUsuario = sc.nextLine();
+        var dados = requisicao.consumo(ADDRESS+ buscaDoUsuario.replace(" ","%20"));
+        salvarNoDb(dados);
+    }
+
+    private void salvarNoDb(String dados){
+        try{
+            Livro livro = new Livro(conversor.getData(dados, DadosLivro.class));
+            Autor autor = new Autor(conversor.getData(dados, DadosAutor.class));
+            Autor autorDb = null;
+            Livro livroDb = null;
+            if (!repositorioAutor.existsByNome(autor.getNome())){
+                repositorioAutor.save(autor);
+                autorDb = autor;
+            }else{
+                autorDb = repositorioAutor.findByNome(autor.getNome());
+            }
+            if (!repositorioLivro.existsByNome(livro.getNome())){
+                livro.setAutor(autorDb);
+                repositorioLivro.save(livro);
+                livroDb = livro;
+            }else{
+                livroDb = repositorioLivro.findByNome(livro.getNome());
+            }
+            System.out.println(livroDb);
+        }catch (NullPointerException e){
+            System.out.println("\n\n*** Livro não encontrado ***\n\n");
+        }
+
+    }
+
+
+    private void buscarLivrosRegistrados() {
+        var bucasDB = repositorioLivro.findAll();
+        if(!bucasDB.isEmpty()){
+            System.out.println("\nLivros cadastrados no banco de dados: ");
+            bucasDB.forEach(System.out::println);
+        }else{
+            System.out.println("\nNenhum livro encontrado no banco de dados!");
         }
     }
 
-    private void listarLivrosEmUmDeterminadoIdioma() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarLivrosEmUmDeterminadoIdioma'");
+    private void buscarAutoresRegistrados() {
+        var buscaDb = repositorioAutor.findAll();
+        if(!buscaDb.isEmpty()){
+            System.out.println("\nAutores cadastrados no banco de dados:");
+            buscaDb.forEach(System.out::println);
+        }else{
+            System.out.println("\nNenhum autor encontrado no banco de dados!");
+        }
     }
 
-    private void listarAutoresVivosEmUmDeterminadoAno() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarAutoresVivosEmUmDeterminadoAno'");
+    private void buscarAutoresVivosPorAno() {
+        System.out.println("\nQual ano deseja pesquisar?");
+        var anoSelecionado = sc.nextInt();
+        sc.nextLine();
+        var buscaAutoresNoDb = repositorioAutor.buscarPorAnoDeFalecimento(anoSelecionado);
+        if(!buscaAutoresNoDb.isEmpty()){
+            System.out.println("\n\nAtores vivos no ano de: " + anoSelecionado);
+            buscaAutoresNoDb.forEach(System.out::println);
+        }else {
+            System.out.println("\nNenhum autor encontrado para esta data!");
+        }
     }
 
-    private void listarAutoresRegistrados() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarAutoresRegistrados'");
+    private void buscarLivrosPorIdioma() {
+        var idiomasCadastrados = repositorioLivro.bucasidiomas();
+        System.out.println("\nIdiomas cadastrados no banco:");
+        idiomasCadastrados.forEach(System.out::println);
+        System.out.println("\nSelecione um dos idiomas cadastrados no banco:\n");
+        var idiomaSelecionado = sc.nextLine();
+        repositorioLivro.buscarPorIdioma(idiomaSelecionado).forEach(System.out::println);
     }
 
-    private void listarLivrosRegistros() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'listarLivrosRegistros'");
+    private void buscarTop10() {
+        var top10 = repositorioLivro.findTop10ByOrderByQuantidadeDeDownloadsDesc();
+        top10.forEach(System.out::println);
     }
 
-    private void buscarLivroPeloTitulo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarLivroPeloTitulo'");
+    private void buscarAutorPorNome() {
+        System.out.println("Qual o nome do autor?");
+        var pesquisa = sc.nextLine();
+        var autor = repositorioAutor.encontrarPorNome(pesquisa);
+        if (!autor.isEmpty()){
+            autor.forEach(System.out::println);
+        }else{
+            System.out.println("*** Autor não encontrado! ***");
+        }
     }
+
+    private void mediaDeDownlaodsPorAutor() {
+        System.out.println("Qual autor deseja buscar?");
+        var pesquisa = sc.nextLine();
+        var test = repositorioLivro.encontrarLivrosPorAutor(pesquisa);
+        DoubleSummaryStatistics media = test.stream()
+                .mapToDouble(Livro::getQuantidadeDeDownloads)
+                .summaryStatistics();
+        System.out.println("Média de Downloads: "+ media.getAverage());
+    }
+
+
 }
