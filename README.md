@@ -1,92 +1,46 @@
 # alura-literatura2024
-Com a resolução do desafio LiterAlura, você experimentará diretamente o papel de um desenvolvedor back-end no cotidiano criando uma aplicação com conexão a um banco de dados relacional. É imprescindível que você faça este desafio, pois é uma parte essencial do programa ONE, em que você terá a oportunidade de aplicar conceitos ....
+
+
+# Alura - ONE Oracle Next Education T6 - Challenge Literatura 2024
+## Curso de Java Web e banco de dados
+| ![Alura - ONE Oracle Next Education T6](/docs/src/img/logo_alura_one.png) |
+|:---:|
+| Curso ONE Oracle Next Education T6, uma parceria entre a Oracle e a Alura, onde estou me dedicando a resolução do desafio LiterAlura, você experimentará diretamente o papel de um desenvolvedor back-end no cotidiano criando uma aplicação com conexão a um banco de dados relacional. É imprescindível que você faça este desafio, pois é uma parte essencial do programa ONE, em que você terá a oportunidade de aplicar conceitos ....|
+
+<a href="https://spring.io/"><img height="35" src="https://img.shields.io/badge/Spring-008000?style=for-the-badge&logo=spring&logoColor=white"></a>
+<a href="https://docs.oracle.com/en/java/javase/20/"><img height= "35" src= "https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"></a>
+
+## Índice
+<a id="topo"></a>
+
+- [Apresentação](#apresentacao)
 
 
 
-Este arquivo fornecerá instruções detalhadas sobre como configurar e executar o projeto.
+## <a name="conclusao"> Conclusão </a>
 
-```markdown
-# Spring Boot Docker Example
+Exploramos o desenvolvimento de projetos usando Spring Boot e Maven, aprendendo a gerenciar dependências e manipular dados JSON. Também revisamos conceitos importantes como funções lambda, API de streams do Java, interfaces, generics e manipulação de datas.
 
-Este é um projeto de exemplo que utiliza Spring Boot 3.2.6, Spring Data JPA, PostgreSQL e Docker. Este projeto demonstra como criar uma aplicação Spring Boot que se conecta a um banco de dados PostgreSQL, tudo orquestrado usando Docker Compose.
+Aplicamos os conhecimentos adquiridos em um projeto prático utilizando a aplicação Screen Match, onde trabalhamos com coleções para representar séries e episódios.
 
-## Pré-requisitos
+Os desafios práticos no final do curso foram uma oportunidade valiosa para consolidar o aprendizado e testar minhas habilidades.
 
-Antes de começar, você precisará ter o seguinte instalado em sua máquina:
+Saio do curso empolgado para aplicar essas novas habilidades em meus projetos futuros!
 
-- [Git](https://git-scm.com/)
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
+## <a name="certificados"></a>Certificados
 
-## Configuração do Projeto
+- texto
 
-### Clonar o Repositório
+[![BAG](docs/src/img/bag.png)](https://cursos.alura.com.br)
 
-Clone este repositório na sua máquina local usando o seguinte comando:
 
-```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
-```
 
-### Configurar as Variáveis de Ambiente
+<p align="right">
+  <a href="#topo" style="text-decoration: none; background-color: #007bff; color: white; padding: 10px 20px; border-radius: 5px;">Voltar ao Topo</a>
+</p>
 
-Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+## <a name="licenca"> Licença </a>
 
-```env
-SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/mydatabase
-SPRING_DATASOURCE_USERNAME=postgres
-SPRING_DATASOURCE_PASSWORD=postgres
-POSTGRES_DB=mydatabase
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-```
+<a href="https://www.buymeacoffee.com/claudiomendonca" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-### Construir e Executar os Contêineres
-
-Construa a imagem Docker e inicie os contêineres usando o Docker Compose:
-
-```bash
-docker-compose up --build
-```
-
-### Acessar a Aplicação
-
-Depois que os contêineres estiverem em execução, a aplicação Spring Boot estará disponível em [http://localhost:8080](http://localhost:8080).
-
-### Acessar o Banco de Dados
-
-Você pode acessar o banco de dados PostgreSQL usando um cliente SQL, como [pgAdmin](https://www.pgadmin.org/) ou qualquer outra ferramenta de sua preferência. Use as seguintes credenciais:
-
-- Host: `localhost`
-- Port: `5432`
-- Database: `mydatabase`
-- Username: `postgres`
-- Password: `postgres`
-
-## Estrutura do Projeto
-
-- `Dockerfile`: Define a imagem Docker para o aplicativo Spring Boot.
-- `docker-compose.yml`: Orquestra os contêineres Docker para o aplicativo e o banco de dados PostgreSQL.
-- `.env`: Arquivo de variáveis de ambiente (não incluído no repositório).
-- `src/main/resources/application.properties`: Configurações do Spring Boot para conectar ao banco de dados usando variáveis de ambiente.
-
-## Limpar os Recursos
-
-Para parar e remover os contêineres Docker, você pode usar o seguinte comando:
-
-```bash
-docker-compose down
-```
-
-## Contribuição
-
-Se você quiser contribuir para este projeto, por favor, abra um pull request ou crie uma issue para discutir a mudança que você gostaria de fazer.
-
-## Licença
-
-Este projeto é licenciado sob os termos da licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-```
-
-Este arquivo `README.md` fornece todas as informações necessárias para que alguém possa clonar o repositório, configurar as variáveis de ambiente, construir e executar os contêineres Docker, e acessar tanto a aplicação Spring Boot quanto o banco de dados PostgreSQL. Além disso, inclui instruções sobre como parar e limpar os recursos Docker quando necessário.
+Copyright © 2024 <a href="https://www.claudiomendonca.eng.br" target="_blank">ClaudioMendonca.eng.br</a> . 
