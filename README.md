@@ -93,7 +93,7 @@ O Literalura permite que o usuário busque títulos do Project Gutenberg, por me
 
 - Badge
 
-[![Badge](docs/src/img/bag.png)](https://cursos.alura.com.br)
+[![Badge](docs/src/img/badge%20literalura.png)](https://cursos.alura.com.br/user/claudioeduardoo)
 
 
 
