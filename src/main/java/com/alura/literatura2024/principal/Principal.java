@@ -172,7 +172,8 @@ public class Principal {
     }
 
     private void buscarTop10() {
-        var top10 = repositorioLivro.findTop10ByOrderByQuantidadeDeDownloadsDesc();
+        var top10 = repositorioLivro.findTop10ByOrderByQuantidadeDeDownloadsDesc();        
+        System.out.println("\n\n=============   T O P   1 0   M E L H O R E S   L I V R O S      ================\n\n");
         top10.forEach(System.out::println);
     }
 
