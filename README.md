@@ -3,6 +3,7 @@
 | ![Alura - ONE Oracle Next Education T6](/docs/src/img/logo_alura_one.png) |
 |:---:|
 | Curso ONE Oracle Next Education T6, uma parceria entre a Oracle e a Alura, onde estou me dedicando a resolução do desafio LiterAlura, você experimentará diretamente o papel de um desenvolvedor back-end no cotidiano criando uma aplicação com conexão a um banco de dados relacional. É imprescindível que você faça este desafio, pois é uma parte essencial do programa ONE, em que você terá a oportunidade de aplicar conceitos ....|
+| <a href="https://cursos.alura.com.br/user/claudioeduardoo" target="_blank"><img style="margin: 10px" height="600" width="320" src="/docs/src/img/apresentacao.gif" alt="Apresentação"/></a> |
 
 <a href="https://spring.io/"><img height="35" src="https://img.shields.io/badge/Spring-008000?style=for-the-badge&logo=spring&logoColor=white"></a>
 <a href="https://docs.oracle.com/en/java/javase/20/"><img height= "35" src= "https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white"></a>
