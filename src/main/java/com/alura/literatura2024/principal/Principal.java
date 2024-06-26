@@ -25,7 +25,7 @@ public class Principal {
     }
 
     public void principal(){
-        String menu = """
+        String headerBase = """
 
                 ===================================================================================================================
                 ██╗     ██╗████████╗███████╗██████╗  █████╗ ████████╗██╗   ██╗██████╗  █████╗     ██████╗  ██████╗ ██████╗ ██╗  ██╗
@@ -36,17 +36,21 @@ public class Principal {
                 ╚══════╝╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝    ╚══════╝ ╚═════╝ ╚══════╝     ╚═╝
 
                 ===================================================================================================================
-                1 - Buscar livro pelo titulo
-                2 - Listar livros registrados
-                3 - Listar autores registrados
-                4 - Listar autores vivos em determinado ano
-                5 - Listar livros em determinado idioma
-                6 - Top 10 livros
-                7 - Buscar autores por nome
-                8 - Media de downloads por autor
+                """;
+        System.out.println(headerBase);
+        String menu = """
+        
+                ========================================    M E N U   =============================================================
+                1 - BUSCAR LIVRO PELO TITULO
+                2 - LISTAR LIVROS REGISTRADOS
+                3 - LISTAR AUTORES REGISTRADOS
+                4 - LISTAR AUTORES VIVOS EM DETERMINADO ANO
+                5 - LISTAR LIVROS EM DETERMINADO IDIOMA
+                6 - TOP 10 LIVROS
+                7 - BUSCAR AUTORES POR NOME
+                8 - MÉDIA DE DOWNLOADS POR AUTOR
                 
-                0 - Sair
-
+                0 - S A I R
                 ===================================================================================================================
                 """;
         var opcao = -1;
@@ -81,10 +85,10 @@ public class Principal {
                     mediaDeDownlaodsPorAutor();
                     break;
                 case 0:
-                    System.out.println("Saindo...");
+                    System.out.println("S A I N D O ...");
                     break;
                 default:
-                    System.out.println("\n\n***Opção Inválida***\n\n");
+                    System.out.println("\n\n=============   O p ç ã o   I n v á l i d a  (Digite um número de 0 a 8)   ================\n\n");
             }
         }
 
@@ -119,7 +123,7 @@ public class Principal {
             }
             System.out.println(livroDb);
         }catch (NullPointerException e){
-            System.out.println("\n\n*** Livro não encontrado ***\n\n");
+            System.out.println("\n\n=============   L i v r o   n ã o   e n c o n t r a d o     ================\n\n");
         }
 
     }
@@ -128,20 +132,20 @@ public class Principal {
     private void buscarLivrosRegistrados() {
         var bucasDB = repositorioLivro.findAll();
         if(!bucasDB.isEmpty()){
-            System.out.println("\nLivros cadastrados no banco de dados: ");
+            System.out.println("\nLivros cadastrados no Banco de Dados: ");
             bucasDB.forEach(System.out::println);
         }else{
-            System.out.println("\nNenhum livro encontrado no banco de dados!");
+            System.out.println("\nNenhum livro encontrado no Banco de Dados!");
         }
     }
 
     private void buscarAutoresRegistrados() {
         var buscaDb = repositorioAutor.findAll();
         if(!buscaDb.isEmpty()){
-            System.out.println("\nAutores cadastrados no banco de dados:");
+            System.out.println("\nAutores cadastrados no Banco de Dados:");
             buscaDb.forEach(System.out::println);
         }else{
-            System.out.println("\nNenhum autor encontrado no banco de dados!");
+            System.out.println("\nNenhum autor encontrado no Banco de Dados!");
         }
     }
 
@@ -160,9 +164,9 @@ public class Principal {
 
     private void buscarLivrosPorIdioma() {
         var idiomasCadastrados = repositorioLivro.bucasidiomas();
-        System.out.println("\nIdiomas cadastrados no banco:");
+        System.out.println("\nIdiomas cadastrados no Banco de Dados:");
         idiomasCadastrados.forEach(System.out::println);
-        System.out.println("\nSelecione um dos idiomas cadastrados no banco:\n");
+        System.out.println("\nSelecione um dos idiomas cadastrados no Banco de Dados:\n");
         var idiomaSelecionado = sc.nextLine();
         repositorioLivro.buscarPorIdioma(idiomaSelecionado).forEach(System.out::println);
     }
